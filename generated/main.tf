@@ -1,3 +1,6 @@
+# Summary: create an ec2 instance on aws with minimum basic requirements
+# Description: Just need a simple ec2 instance running on amazon linux
+
 terraform {
   required_version = ">= 1.0"
   required_providers {
@@ -9,7 +12,13 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
+}
+
+variable "aws_region" {
+  description = "AWS region to deploy resources"
+  type        = string
+  default     = "us-east-1"
 }
 
 resource "aws_instance" "example" {
@@ -18,7 +27,6 @@ resource "aws_instance" "example" {
 
   tags = {
     Name = "example-ec2"
-    Jira = "KAN-31"
   }
 }
 
